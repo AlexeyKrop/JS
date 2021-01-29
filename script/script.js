@@ -1,6 +1,6 @@
 let money = 1e5;
-let income = 5000;
-let addExpenses = 'ТРЕНАЖЕРНЫЙ зал, ресторан, транспорт';
+let income = 'фриланс';
+let addExpenses = 'РАСХОДЫ';
 let deposit = true;
 let mission = 1e6;
 let period = 12;
