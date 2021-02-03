@@ -10,10 +10,10 @@ console.log(addExpenses.split());
 console.log('Цель заработать: ' + mission + ' рублей');
 console.log('Период равен ' + period + ' месяцев' );
 console.log(addExpenses.toLowerCase());
-let expenses1 = prompt('Введите обязательную статью расходов?');
-let expenses2 = prompt('Введите обязательную статью расходов?');
-let amount1 = +prompt('Во сколько это обойдется?');
-let amount2 = +prompt('Во сколько это обойдется?');
+let expenses1 = prompt('Введите обязательную статью расходов №1?');
+let expenses2 = prompt('Введите обязательную статью расходов №2?');
+let amount1 = +prompt(`Во сколько  обойдется(-утся) ${expenses1}?`);
+let amount2 = +prompt(`Во сколько это обойдется(-утся) ${expenses2}?`);
 
 // Функция возвращает расходы за месяц
 function getExpensesMonth() {
@@ -31,10 +31,14 @@ console.log('Бюджет на месяц: ' + accumulatedMonth);
 
 // Функция возвращает за какой период будет достигнута цель
 function getTargetMonth() {
-  let monthToMission = Math.ceil(mission / accumulatedMonth);
+  let monthToMission = 0;
+  if (accumulatedMonth > 0) {
+     monthToMission = Math.ceil(mission / accumulatedMonth);
+  }
   return monthToMission;
 }
 console.log('Цель будет достигнута за: ' + getTargetMonth() + ' месяцев(-а)');
+
 let budgetDay = Math.floor(accumulatedMonth / 30);
 console.log('Бюджет на день: ' + budgetDay + ' рублей');
 
