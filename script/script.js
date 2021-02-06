@@ -8,39 +8,47 @@ let money,
     deposit = confirm('Есть ли у вас депозит в банке?'),
     mission = 1e6,
     period = 12;
-
+// Функция возвращает введенным пользователем ежемесячный доход
 let start = function() {
-  money = prompt('Ваш месячный доход?');
-
-  while(!isNumber(money)){
+  do {
     money = prompt('Ваш месячный доход?');
-  }
+  } while(!isNumber(money));
 };
 start();
+
+// Функция возвращает тип переменной
+function showTypeOf(whatType) {
+  return typeof(whatType);
+}
+console.log(showTypeOf(money));
+console.log(showTypeOf(income));
+console.log(showTypeOf(deposit));
 
 console.log(addExpenses.length);
 console.log(addExpenses.split());
 console.log('Цель заработать: ' + mission + ' рублей');
 console.log('Период равен ' + period + ' месяцев' );
 console.log(addExpenses.toLowerCase());
-let expenses1 = prompt('Введите обязательную статью расходов №1?');
-let expenses2 = prompt('Введите обязательную статью расходов №2?');
-let amount1 = +prompt(`Во сколько  обойдется(-утся) ${expenses1}?`);
-let amount2 = +prompt(`Во сколько это обойдется(-утся) ${expenses2}?`);
+
+let expenses = [];
+
 
 // Функция возвращает расходы за месяц
 function getExpensesMonth() {
-   while(!isNumber(amount1, amount2)){
-    amount1 = +prompt(`Во сколько это обойдется(-утся) ${expenses1}?`);
-    amount2 = +prompt(`Во сколько это обойдется(-утся) ${expenses2}?`);
-  }
-  return amount1 + amount2;
-}
-console.log(getExpensesMonth(amount1, amount2));
+   let sum = 0;
+   for (let i = 0; i < 2; i++) {
+     expenses[i] = prompt('Введите обязательную статью расходов № ' + (+i + 1));
+     sum += +prompt(`Во сколько обойдется ${expenses[i].toLowerCase()}?`);
+   }
+   return sum;
+  }    
+
+ let expensesAmount = getExpensesMonth();
+console.log(expensesAmount);
 
 // Функция возвращает накопления на месяц
 function getAccumulatedMonth() {
-  let budgetMonth = money - (amount1 + amount2);
+  let budgetMonth = money - expensesAmount;
   return budgetMonth;
 }
 let accumulatedMonth = getAccumulatedMonth();
@@ -65,14 +73,6 @@ if(targetMonth > 0){
 let budgetDay = Math.floor(accumulatedMonth / 30);
 console.log('Бюджет на день: ' + budgetDay + ' рублей');
 
-// Функция возвращает тип переменной
-function showTypeOf(whatType) {
-  return typeof(whatType);
-}
-showTypeOf(money);
-showTypeOf(income);
-showTypeOf(deposit);
-
 // Функция возвращает уровень дохода
 function getStatusIncome() {
   if (budgetDay >= 1200) {
@@ -85,4 +85,4 @@ function getStatusIncome() {
     return 'Что то пошло не так';
   }
 }
-getStatusIncome();
+console.log(getStatusIncome());
