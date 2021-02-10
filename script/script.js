@@ -32,17 +32,17 @@ let appData = {
     let addExpenses = prompt('Перечислите возможные расходы за рассчитываемый период через запятую');
     appData.addExpenses = addExpenses.split();
     appData.deposit = confirm('Есть ли у вас депозит в банке?');
+    for (let i = 0; i < 2; i++) {
+      let expenses = prompt('Введите обязательную статью расходов № ' + (+i + 1));
+      appData.expenses = expenses;
+      appData.expenses.expenses = Number(prompt(`Во сколько обойдется ${appData.expenses.toLowerCase()}?`));
+    }
+    return appData.expenses.expenses;
   },
   getExpensesMonth: function () {
-    let sum = 0;
-    for (let i = 0; i < 2; i++) {
-      appData.expenses = prompt('Введите обязательную статью расходов № ' + (+i + 1));
-      sum += +prompt(`Во сколько обойдется ${appData.expenses.toLowerCase()}?`);
-    }
-    return sum;
     },
   getAccumulatedMonth: function() {
-    let budgetMonth = money - expensesAmount;
+    let budgetMonth = money - appData.expenses.expenses;
     return budgetMonth;
     },
   getTargetMonth: function() {
@@ -67,8 +67,7 @@ let appData = {
 };
  appData.asking();
 
-let expensesAmount = appData.getExpensesMonth();
-console.log(expensesAmount);
+
 
 let accumulatedMonth = appData.getAccumulatedMonth();
 console.log('Бюджет на месяц: ' + accumulatedMonth);
