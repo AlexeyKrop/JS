@@ -10,7 +10,7 @@ let isNumber = function(n) {
 // Функция возвращает введенным пользователем ежемесячный доход
 let start = function() {
   do {
-    money = prompt('Ваш месячный доход?');
+    money = +prompt('Ваш месячный доход?');
   } while(!isNumber(money));
 };
 start();
@@ -24,13 +24,13 @@ let appData = {
   addExpenses: [],
   deposit: false,
   mission: 1e6,
-  period: 12,
+  period: 0,
   budgetDay: 0,
   budgetMonth: 0,
   expensesMonth: 0,
   asking: function() {
     let addExpenses = prompt('Перечислите возможные расходы за рассчитываемый период через запятую');
-    appData.addExpenses = addExpenses.split();
+    appData.addExpenses = addExpenses.split(' , ');
     appData.deposit = confirm('Есть ли у вас депозит в банке?');
     for (let i = 0; i < 2; i++) {
       let question = prompt('Введите обязательную статью расходов № ' + (+i + 1));
@@ -40,25 +40,26 @@ let appData = {
         cash = +prompt(`Во сколько обойдется?`);
       } while (!isNumber(cash) || cash < 0);
         appData.expenses[question] = cash;
-
     }
-    
   },
   getExpensesMonth: function () {
+    for (let key in appData.expenses) {
+      appData.expensesMonth += appData.expenses[key];
+    }
+    return appData.expensesMonth;
     },
-  getAccumulatedMonth: function() {
-    let budgetMonth = money - sum;
-    return budgetMonth;
+  getBudget: function() {
+    appData.budgetMonth = appData.budget - appData.expensesMonth;
+    return appData.budgetMonth;
     },
   getTargetMonth: function() {
-    let monthToMission = 0;
-    if (accumulatedMonth > 0) {
-      monthToMission = Math.ceil(appData.mission / accumulatedMonth);
+    if (appData.budgetMonth > 0) {
+      appData.period = Math.ceil(appData.mission / appData.budgetMonth);
     }
-    return monthToMission;
+    return appData.period;
     },   
   getStatusIncome:  function() {
-    appData.budgetDay = Math.floor(accumulatedMonth / 30);
+    appData.budgetDay = Math.floor(appData.budgetMonth / 30);
     if (appData.budgetDay >= 1200) {
       return 'У вас высокий уровень дохода';
     } else if (appData.budgetDay >= 600 && appData.budgetDay < 1200) {
@@ -70,41 +71,20 @@ let appData = {
     }
   },
 };
- appData.asking();
+appData.asking();
+appData.getBudget();
+console.log(appData);
 
-
-
-let accumulatedMonth = appData.getAccumulatedMonth();
-console.log('Бюджет на месяц: ' + accumulatedMonth);
-
-let targetMonth = appData.getTargetMonth();
-if(targetMonth > 0){
-  console.log('Цель будет достигнута за: ' + targetMonth + ' месяцев(-а)');
-} else {
-   console.log('Цель не будет достигнута');
-}
-
+ console.log('Расходы за месяц: ' + appData.getExpensesMonth() + ' рублей');
+ appData.getTargetMonth();
+ if(appData.getTargetMonth() > 0){
+   console.log('Цель будет достигнута за: ' + appData.getTargetMonth() + ' месяцев(-а)');
+ } else {
+    console.log('Цель не будет достигнута');
+ }
+console.log('Бюджет на месяц: ' + appData.getBudget());
 console.log(appData.getStatusIncome());
-
-
 console.log('Бюджет на день: ' + appData.budgetDay + ' рублей');
-
-
-
-
-console.log(typeof(appData.budget));
-console.log(typeof(appData.income));
-console.log(typeof(appData.deposit));
-
-
-console.log('Цель заработать: ' + appData.mission + ' рублей');
-console.log('Период равен ' + appData.period + ' месяцев' );
-
-
-
-
-
-
 
 
 
