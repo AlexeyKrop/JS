@@ -73,19 +73,16 @@ let appData = {
 };
 appData.asking();
 appData.getBudget();
-console.log(appData);
 
- console.log('Расходы за месяц: ' + appData.getExpensesMonth() + ' рублей');
- appData.getTargetMonth();
- if(appData.getTargetMonth() > 0){
-   console.log('Цель будет достигнута за: ' + appData.getTargetMonth() + ' месяцев(-а)');
- } else {
-    console.log('Цель не будет достигнута');
- }
-console.log('Бюджет на месяц: ' + appData.getBudget());
+
+console.log('Расходы за месяц: ' + appData.getExpensesMonth() + ' рублей');
+
+
+console.log('Цель будет достигнута за: ' + appData.getTargetMonth() + ' месяцев(-а)');
+
 console.log(appData.getStatusIncome());
-console.log('Бюджет на день: ' + appData.budgetDay + ' рублей');
 
+console.log(appData);
 
 
 
