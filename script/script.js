@@ -84,7 +84,7 @@ console.log('Цель будет достигнута за: ' + appData.getTarge
 console.log(appData.getStatusIncome());
 
 for (let key in appData){
-  console.log(appData[key]);
+  console.log("Наша программа включает в себя данные: " + appData[key]);
 }
 
 
