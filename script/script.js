@@ -75,6 +75,7 @@ appData.asking();
 appData.getBudget();
 
 
+
 console.log('Расходы за месяц: ' + appData.getExpensesMonth() + ' рублей');
 
 
@@ -82,8 +83,9 @@ console.log('Цель будет достигнута за: ' + appData.getTarge
 
 console.log(appData.getStatusIncome());
 
-console.log(appData);
-
+for (let key in appData){
+  console.log(appData[key]);
+}
 
 
 
