@@ -50,13 +50,12 @@ let appData = {
     }   
     let addExpenses;
       do {
-        addExpenses = prompt('Перечислите возможные расходы за рассчитываемый период через запятую');    
+        addExpenses = prompt('Перечислите возможные расходы за рассчитываемый период через запятую');   
+        addExpenses.toLowerCase(); 
+        console.log(addExpenses);
       } while (isString(addExpenses)); 
       appData.addExpenses = addExpenses.split(', ');
-      
-      for (let i = 0; i < appData.addExpenses.length; i++){
-        appData.addExpenses[i] = appData.addExpenses[i].charAt(0).toUpperCase() + appData.addExpenses[i].substring(1);
-      }    
+      appData.addExpenses = appData.addExpenses.map(item => item.toLowerCase().trim().slice(0, 1).toUpperCase() + item.slice(1));
 
     appData.deposit = confirm('Есть ли у вас депозит в банке?');
     for (let i = 0; i < 2; i++) {
