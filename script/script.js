@@ -49,12 +49,14 @@ let appData = {
         appData.income[itemIncome] = cashIncome;
     }   
     let addExpenses;
-     do {
+      do {
         addExpenses = prompt('Перечислите возможные расходы за рассчитываемый период через запятую');    
       } while (isString(addExpenses)); 
+      appData.addExpenses = addExpenses.split(', ');
       
-    appData.addExpenses = addExpenses.split(' , ');
-
+      for (let i = 0; i < appData.addExpenses.length; i++){
+        appData.addExpenses[i] = appData.addExpenses[i].charAt(0).toUpperCase() + appData.addExpenses[i].substring(1);
+      }    
 
     appData.deposit = confirm('Есть ли у вас депозит в банке?');
     for (let i = 0; i < 2; i++) {
