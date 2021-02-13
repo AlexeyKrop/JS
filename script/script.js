@@ -4,7 +4,7 @@ let money;
 
 // Функция проверки вводимого значения
 let isNumber = function(n) {
-  return !isNaN(parseFloat(n)) && isFinite(n);
+  return !isNaN(parseFloat(n)) && isFinite(n) ;
 };
 // Функция проверка строки
 let isString = function(n) {
@@ -14,7 +14,7 @@ let isString = function(n) {
 // Функция возвращает введенным пользователем ежемесячный доход
 let start = function() {
   do {
-    money = +prompt('Ваш месячный доход?');
+    money = prompt('Ваш месячный доход?');
   } while(!isNumber(money));
 };
 start();
@@ -44,7 +44,7 @@ let appData = {
       } while (isString(itemIncome));
       
       do {
-        cashIncome = +prompt("Сколько вы там зарабатываете?");
+        cashIncome = prompt("Сколько вы там зарабатываете?");
       } while (!isNumber(cashIncome) || cashIncome < 0);
         appData.income[itemIncome] = cashIncome;
     }   
@@ -60,18 +60,23 @@ let appData = {
 
     appData.deposit = confirm('Есть ли у вас депозит в банке?');
     for (let i = 0; i < 2; i++) {
-      let question = prompt('Введите обязательную статью расходов № ' + (+i + 1));
-      let cash;
+      let question,
+          cash;
 
       do {
-        cash = +prompt(`Во сколько обойдется?`);
+        question = prompt('Введите обязательную статью расходов № ' + (+i + 1));
+      } while (isString(question));
+      
+      
+      do {
+        cash = prompt(`Во сколько обойдется?`);
       } while (!isNumber(cash) || cash < 0);
         appData.expenses[question] = cash;
     }
   },
   getExpensesMonth: function () {
     for (let key in appData.expenses) {
-      appData.expensesMonth += appData.expenses[key];
+      appData.expensesMonth += +appData.expenses[key];
     }
     return appData.expensesMonth;
     },
@@ -100,8 +105,10 @@ let appData = {
   getInfoDeposit: function () {
     if(appData.deposit){
       do {  
-        appData.percentDeposit = +prompt("Введите процентную ставку?");
-        appData.moneyDeposit = +prompt("Какой размер вклада?");
+        appData.percentDeposit = prompt("Введите процентную ставку?");
+      } while (!isNumber(appData.percentDeposit));
+      do {  
+        appData.moneyDeposit = prompt("Какой размер вклада?");
       } while (!isNumber(appData.deposit) && !isNumber(appData.moneyDeposit));
     }
   },
