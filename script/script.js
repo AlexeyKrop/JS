@@ -1,5 +1,78 @@
 'use strict';
 
+let btnStart = document.getElementById('start');
+console.log(btnStart);
+
+let income = document.querySelector('.income');
+let btnPlusIncome = income.getElementsByTagName('button');
+console.log(btnPlusIncome);
+
+let expenses =document.querySelector('.expenses');
+let btnPlusExpenses = expenses.getElementsByTagName('button');
+console.log(btnPlusExpenses);
+
+let checkbox = document.querySelector('#deposit-check');
+console.log(checkbox);
+
+let inputValue = document.querySelectorAll('.additional_income-item');
+console.log(inputValue);
+
+// доход за месяц
+let inputValueBudgetMonth = document.getElementsByClassName('.budget_month-value');
+console.log(inputValueBudgetMonth);
+// дневной бюджет
+let inputValueBudgetDay = document.getElementsByClassName('.budget_day-value');
+console.log(inputValueBudgetDay);
+// расход за месяц
+let inputValueExpensesMonth = document.getElementsByClassName('.expenses_month-value');
+console.log(inputValueBudgetMonth);
+// возможные доходы
+let inputValueAdditionalIncome = document.getElementsByClassName('.additional_income-value');
+console.log(inputValueAdditionalIncome);
+// возможные расходы
+let inputValueAdditionalExpenses = document.getElementsByClassName('.additional_expenses-value');
+console.log(inputValueAdditionalExpenses);
+// накопления за период
+let inputValueIncomePeriod = document.getElementsByClassName('.income_period-value');
+console.log(inputValueIncomePeriod);
+// срок достижения цели
+let inputValueTargetMonth = document.getElementsByClassName('.target_month-value');
+console.log(inputValueTargetMonth);
+
+// месячны доход 
+let inputValueSalaryAmount = document.querySelector('.salary-amount');
+console.log(inputValueSalaryAmount);
+
+// дополнительный доход
+let inputValueIncomeTitle = document.querySelector('.income-title');
+console.log(inputValueIncomeTitle);
+
+let inputValueIncomAmount = document.querySelector('.income-amount');
+console.log(inputValueIncomAmount);
+
+// возможный доход
+let inputValueAdditionalIncomeItemAll = document.querySelectorAll('.additional_income-item');
+console.log(inputValueAdditionalIncomeItemAll);
+
+
+// обязательные расходы
+let inputValueExpensesTitle = document.querySelector('.expenses-title');
+console.log(inputValueExpensesTitle);
+let inputValueExpensesAmount = document.querySelector('.expenses-amount');
+console.log(inputValueExpensesAmount);
+
+// возможные расходы
+let additionalExpensesItem = document.querySelector('.additional_expenses-item');
+console.log(additionalExpensesItem);
+
+// цель
+let targetAmount = document.querySelector('.target-amount');
+console.log(targetAmount);
+
+// ползунок
+let range = document.querySelector('.period-select');
+console.log(range);
+
 let money;
 
 // Функция проверки вводимого значения
