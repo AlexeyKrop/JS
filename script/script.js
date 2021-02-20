@@ -260,7 +260,13 @@ let appData = {
     return appData.budgetMonth * periodSelect.value;
   }
 };
-
+ btnStart.disabled = true;
+inputValueSalaryAmount.addEventListener('input', function(){
+  if(inputValueSalaryAmount.value.trim() !== ''){
+    btnStart.disabled = false;
+  }
+  return btnStart;
+});
 
 btnStart.addEventListener('click', appData.start);
 
