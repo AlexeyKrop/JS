@@ -272,39 +272,59 @@ inputValueSalaryAmount.addEventListener('input', function(){
   return btnStart;
 });
 
-incomeItems.forEach(function(item){
-  let itemIncome = item.querySelector('.income-title');
-  let sumIncome = item.querySelector('.income-amount');
-  sumIncome.addEventListener('input', function(){
-    sumIncome.value = sumIncome.value.replace(/[^0-9\.]/g, '');
-  });
-  itemIncome.addEventListener('input', function(){
-    itemIncome.value = itemIncome.value.replace(/[^а-я]/,'');
-  });      
-});
 
-for(let i = 0; i < 2; i++){
-  additionalIncomeItem[i].addEventListener('input', function(){
-  additionalIncomeItem[i].value = additionalIncomeItem[i].value.replace(/[^а-я]/,'');
-  });
-}
+// incomeItems.forEach(function(item){
+//   let itemIncome = item.querySelector('.income-title');
+//   let sumIncome = item.querySelector('.income-amount');
+//   sumIncome.addEventListener('input', function(){
+//     sumIncome.value = sumIncome.value.replace(/[^0-9\.]/g, '');
+//   });
+//   itemIncome.addEventListener('input', function(){
+//     itemIncome.value = itemIncome.value.replace(/[^а-я]/,'');
+//   });      
+// });
+
+// for(let i = 0; i < 2; i++){
+//   additionalIncomeItem[i].addEventListener('input', function(){
+//   additionalIncomeItem[i].value = additionalIncomeItem[i].value.replace(/[^а-я]/,'');
+//   });
+// }
  
-expensesItems.forEach(function(item){
-  let itemExpenses = item.querySelector('.expenses-title');
-  let sumExpenses = item.querySelector('.expenses-amount');
-  sumExpenses.addEventListener('input', function(){
-    sumExpenses.value = sumExpenses.value.replace(/[^0-9\.]/g, '');
-  });
-  itemExpenses.addEventListener('input', function(){
-  itemExpenses.value = itemExpenses.value.replace(/[^f-z]/,'');
-  });      
-});
+// expensesItems.forEach(function(item){
+//   let itemExpenses = item.querySelector('.expenses-title');
+//   let sumExpenses = item.querySelector('.expenses-amount');
+//   sumExpenses.addEventListener('input', function(){
+//     sumExpenses.value = sumExpenses.value.replace(/[^0-9\.]/g, '');
+//   });
+//   itemExpenses.addEventListener('input', function(){
+//   itemExpenses.value = itemExpenses.value.replace(/[^f-z]/,'');
+//   });      
+// });
 
- targetAmount.addEventListener('input', function(){
-    targetAmount.value = targetAmount.value.replace(/[^0-9\.]/g, '');
-  });
+//  targetAmount.addEventListener('input', function(){
+//     targetAmount.value = targetAmount.value.replace(/[^0-9\.]/g, '');
+//   });
 
-   
+let inputAll = document.getElementsByTagName('input');
+
+for (let i = 0; i < inputAll.length; i++) {
+  if(inputAll[i].placeholder === 'Наименование'){
+    console.log(inputAll[i]);
+    inputAll[i].addEventListener('input', function(){
+    inputAll[i].value = inputAll[i].value.replace(/[^а-я]/,'');
+    });
+}
+}
+
+for (let i = 0; i < inputAll.length; i++) {
+  if(inputAll[i].placeholder === 'Сумма'){
+    console.log(inputAll[i]);
+    inputAll[i].addEventListener('input', function(){
+    inputAll[i].value = inputAll[i].value.replace(/[^0-9\.]/g, '');
+    });
+}
+}
+
 
 btnStart.addEventListener('click', appData.start);
 
