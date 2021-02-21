@@ -132,6 +132,18 @@ let appData = {
     if(incomeItems.length === 3){
       btnPlusIncome.style.display ='none';
     }
+    let sumPlaceHolder = document.querySelectorAll('[placeholder = "Сумма"]');
+    let namePlaceHolder = document.querySelectorAll('[placeholder = "Наименование"]');
+    sumPlaceHolder.forEach(function(item){
+      item.addEventListener('input', function(){
+        item.value = item.value.replace(/[^0-9\.]/g, '');
+      });
+    });
+    namePlaceHolder.forEach(function(item){
+      item.addEventListener('input', function(){
+        item.value = item.value.replace(/[^а-я]/,'');
+      });
+    });
   },
   addExpensesBlock: function() {
     let cloneExpensesItem = expensesItems[0].cloneNode(true);
@@ -142,6 +154,18 @@ let appData = {
     if (expensesItems.length === 3) {
       btnPlusExpenses.style.display = 'none';
     }
+    let expensesSumPlaceHolder = document.querySelectorAll('[placeholder = "Сумма"]');
+    let expensesNamePlaceHolder = document.querySelectorAll('[placeholder = "Наименование"]');
+    expensesSumPlaceHolder.forEach(function(item){
+      item.addEventListener('input', function(){
+        item.value = item.value.replace(/[^0-9\.]/g, '');
+      });
+    });
+    expensesNamePlaceHolder.forEach(function(item){
+      item.addEventListener('input', function(){
+        item.value = item.value.replace(/[^а-я]/,'');
+      });
+    });
   },
   getExpenses: function() {
     expensesItems.forEach(function(item){
@@ -171,10 +195,7 @@ let appData = {
   },
   getIncome: function() {
     incomeItems.forEach(function(item){
-      let itemIncome = item.querySelector('.income-title');
-      itemIncome.addEventListener('input', function(){
-        itemIncome.value = itemIncome.value.replace(/[^а-я]/,'');
-      });
+      let itemIncome = item.querySelector('.income-title').value;
       let cashItem = item.querySelector('.income-amount').value;
       if(itemIncome !== '' && cashItem !== ''){
         appData.income[itemIncome] = cashItem;
