@@ -51,7 +51,10 @@ let btnStart = document.getElementById("start"),
   periodSelect = document.querySelector(".period-select"),
   paragraph = document.querySelector(".period-amount"),
   money,
-  periodAmount = document.querySelector(".period-amount");
+  periodAmount = document.querySelector(".period-amount"),
+  depositBank = document.querySelector(".deposit-bank"),
+  depositAmount = document.querySelector(".deposit-amount"),
+  depositPercent = document.querySelector(".deposit-percent");
 
 // Функция проверки вводимого значения
 let isNumber = function (n) {
@@ -85,14 +88,17 @@ class AppData {
     }
     periodSelect.value = 0;
     periodAmount.textContent = 1;
+    checkbox.checked = false;
+    depositBank.value = "";
   }
 
   start() {
-    if (inputValueSalaryAmount.value.trim() === "") {
-      alert('Поле "Месячный доход" должно быть заполнено');
-      return;
+    if (inputValueSalaryAmount.value.trim() !== "") {
+      // alert('Поле "Месячный доход" должно быть заполнено');
+      // return;
+      this.budget = inputValueSalaryAmount.value;
     }
-    this.budget = inputValueSalaryAmount.value;
+    // this.budget = inputValueSalaryAmount.value;
 
     // вызов функции с затратами
     this.getExpenses();
@@ -101,7 +107,10 @@ class AppData {
     // затраты на месяц
     this.getIncomesMonth();
     this.getExpensesMonth();
+
     // бюджет
+    this.depositHandler();
+    this.getInfoDeposit();
     this.getBudget();
     this.getStatusIncome();
     this.getAddExpenses();
@@ -233,7 +242,9 @@ class AppData {
   }
 
   getBudget() {
-    this.budgetMonth = this.budget - this.expensesMonth + this.incomesMonth;
+    let monthDeposit = this.moneyDeposit * (this.percentDeposit / 100);
+    this.budgetMonth =
+      this.budget - this.expensesMonth + this.incomesMonth + monthDeposit;
     return this.budgetMonth;
   }
 
@@ -259,17 +270,41 @@ class AppData {
 
   getInfoDeposit() {
     if (this.deposit) {
+      this.percentDeposit = depositPercent.value;
       do {
-        this.percentDeposit = prompt("Введите процентную ставку?");
-      } while (!isNumber(this.percentDeposit));
-      do {
-        this.moneyDeposit = prompt("Какой размер вклада?");
+        this.moneyDeposit = depositAmount.value;
       } while (!isNumber(this.deposit) && !isNumber(this.moneyDeposit));
     }
   }
 
   calcSAvedMoney() {
     return this.budgetMonth * periodSelect.value;
+  }
+
+  changePercent() {
+    let selectInput = this.value;
+    if (selectInput === "other") {
+      depositPercent.style.display = "inline-block";
+      this.percentDeposit = depositPercent.value;
+    } else {
+      depositPercent.value = selectInput;
+    }
+  }
+
+  depositHandler() {
+    if (checkbox.checked) {
+      depositBank.style.display = "inline-block";
+      depositAmount.style.display = "inline-block";
+      this.deposit = true;
+      depositBank.addEventListener("change", this.changePercent);
+    } else {
+      depositBank.style.display = "none";
+      depositAmount.style.display = "none";
+      depositBank.value = " ";
+      depositAmount.value = " ";
+      this.deposit = true;
+      depositBank.removeEventListener("change", this.changePercent);
+    }
   }
 
   eventListener() {
@@ -282,7 +317,7 @@ class AppData {
     });
     btnStart.addEventListener("click", function () {
       appData.start();
-      AppData.prototype.disableInput();
+      appData.disableInput();
       btnStart.hidden = true;
       btnCancel.style.display = "block";
     });
@@ -290,7 +325,7 @@ class AppData {
       btnStart.hidden = false;
       btnCancel.style.display = "none";
       appData.reset();
-      AppData.prototype.activeInput();
+      appData.activeInput();
     });
     periodSelect.addEventListener("input", function () {
       paragraph.innerHTML = periodSelect.value;
@@ -303,6 +338,7 @@ class AppData {
     btnPlusIncome.addEventListener("click", function () {
       appData.addIncomeBlock();
     });
+    checkbox.addEventListener("change", this.depositHandler.bind(this));
   }
 
   disableInput() {
@@ -333,6 +369,14 @@ function getReplace(placeHolder) {
           inputAll[i].value = inputAll[i].value.replace(/[^а-я]/, "");
         } else if (placeHolder === "Сумма") {
           inputAll[i].value = inputAll[i].value.replace(/[^0-9\.]/g, "");
+        } else if (placeHolder === "Процент") {
+          inputAll[i].value = inputAll[i].value.replace(/[^0-9\.]/g, "");
+          if (inputAll[i].value > 100) {
+            btnStart.disabled = true;
+            alert("Введите число меньше 100");
+          } else {
+            btnStart.disabled = false;
+          }
         }
       });
     }
@@ -340,3 +384,4 @@ function getReplace(placeHolder) {
 }
 getReplace("Наименование");
 getReplace("Сумма");
+getReplace("Процент");
